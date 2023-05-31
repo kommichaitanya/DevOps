@@ -1,0 +1,33 @@
+Go to the cd /etc/systemd/system and create a file name with elasticsearch.service
+
+Paste the below file in your elasticsearch.service file
+
+------------------------------------------------------------
+[Unit]
+Description=Elasticsearch
+Documentation=https://www.elastic.co/products/elasticsearch
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=elasticsearch
+Group=elasticsearch
+ExecStart=/usr/share/elasticsearch/bin/elasticsearch
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+-----------------------------------------------------------------
+
+
+Make sure to adjust the ExecStart path if your Elasticsearch installation location is different.
+
+sudo chown -R elasticsearch:elasticsearch /usr/share/elasticsearch
+sudo chown -R elasticsearch:elasticsearch /var/log/elasticsearch
+sudo chown -R elasticsearch:elasticsearch /var/lib/elasticsearch
+
+
+sudo systemctl enable elasticsearch
+sudo systemctl start elasticsearch
