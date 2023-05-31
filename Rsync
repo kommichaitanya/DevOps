@@ -1,0 +1,2 @@
+yum install rsync -y
+To do the rsync in local machines
